@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Título de la página{% endblock %}</title>
+  <!--link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" integrity="sha384-XXXX" crossorigin="anonymous"-->
+
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/reporte_existencias/">Productos</a></li>
+      <li><a href="/reporte_ventas/">Ventas</a></li>
+    </ul>
+  </nav>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer>
+  </footer>
+
+<!--script src="{% static 'js/bootstrap.bundle.min.js' %}" integrity="sha384-XXXX" crossorigin="anonymous"></script-->
+
+</body>
+</html>
