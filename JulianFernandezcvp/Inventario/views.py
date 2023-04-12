@@ -45,16 +45,37 @@ def crear_venta(request):
     if request.method == 'POST':
         form = VentaForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Venta registrada correctamente.')
-            return redirect('reporte_existencias')
+            venta = form.save(commit=False)  # obtener instancia del modelo Venta sin guardarla en la BD
+            producto = venta.producto
+            cantidad_vendida = venta.cantidad
+            if cantidad_vendida > producto.cantidad:
+                messages.error(request, f'No hay suficientes unidades de {producto.nombre} en inventario')
+                return render(request, 'Inventario/crear_venta.html', {'form': form})
+            else:
+                producto.cantidad -= cantidad_vendida
+                producto.save()
+                venta.save()
+                messages.success(request, 'Venta registrada correctamente.')
+                return redirect('reporte_ventas')
     else:
         form = VentaForm()
     return render(request, 'Inventario/crear_venta.html', {'form': form})
 
+
+@login_required
 def reporte_ventas(request):
     ventas = Venta.objects.all()
     for venta in ventas:
         venta.precio_unitario = venta.producto.precio
         venta.total = venta.cantidad * venta.precio_unitario
     return render(request, 'Inventario/reporte_ventas.html', {'ventas': ventas}) 
+
+@login_required
+@permission_required('Inventario.delete_producto')
+def eliminar_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+    if request.method == 'POST':
+        producto.delete()
+        messages.success(request, 'Producto eliminado correctamente.')
+        return redirect('reporte_existencias')
+    return render(request, 'Inventario/eliminar_producto.html', {'producto': producto})    

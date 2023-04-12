@@ -19,8 +19,8 @@
         <th scope="row">{{ forloop.counter }}</th>
         <td>{{ venta.producto }}</td>
         <td>{{ venta.cantidad }}</td>
-        <td>{{ venta.precio_unitario }}</td>
-        <td>{{ venta.total }}</td>
+        <td>${{ venta.precio_unitario }}</td>
+        <td>${{ venta.total }}</td>
         <td>{{ venta.fecha_venta }}</td>
       </tr>
       {% empty %}

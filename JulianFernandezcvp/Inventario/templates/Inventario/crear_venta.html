@@ -11,18 +11,18 @@
         <div class="card-body">
           <form method="post">
             {% csrf_token %}
-            <div class="form-group">
-              <label for="{{ form.producto.name }}" class="form-label">Producto</label>
-              {{ form.producto }}
-            </div>
-            <div class="form-group">
-              <label for="{{ form.cantidad.name }}" class="form-label">Cantidad</label>
-              {{ form.cantidad }}
-            </div>
-            <div class="form-group">
-              <label for="{{ form.precio_unitario.name }}" class="form-label">Precio unitario</label>
-              {{ form.precio_unitario }}
-            </div>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th><label for="{{ form.producto.name }}" class="form-label">Producto</label></th>
+                  <td>{{ form.producto }}</td>
+                </tr>
+                <tr>
+                  <th><label for="{{ form.cantidad.name }}" class="form-label">Cantidad</label></th>
+                  <td>{{ form.cantidad }}</td>
+                </tr>
+              </tbody>
+            </table>
             <button type="submit" class="btn btn-primary">Guardar</button>
             <a href="{% url 'reporte_ventas' %}" class="btn btn-secondary">Cancelar</a>
           </form>

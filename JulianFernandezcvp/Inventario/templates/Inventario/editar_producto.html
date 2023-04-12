@@ -1,11 +1,42 @@
 {% extends 'Inventario/base.html' %}
 
 {% block content %}
-  <h2>Editar producto</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a href="{% url 'productos' %}" class="btn btn-secondary">Cancelar</a>
-  </form>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card mt-5">
+        <div class="card-header">
+          <h2 class="text-center">Editar producto</h2>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th class="align-middle">Nombre</th>
+                  <td>{{ form.nombre }}</td>
+                </tr>
+                <tr>
+                  <th class="align-middle">Descripción</th>
+                  <td>{{ form.descripcion }}</td>
+                </tr>
+                <tr>
+                  <th class="align-middle">Precio</th>
+                  <td>{{ form.precio }}</td>
+                </tr>
+                <tr>
+                  <th class="align-middle">Cantidad</th>
+                  <td>{{ form.cantidad }}</td>
+                </tr>
+              </tbody>
+            </table>
+              <button type="submit" class="btn btn-primary mr-2">Guardar</button>
+              <a href="{% url 'reporte_existencias' %}" class="btn btn-secondary">Cancelar</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
