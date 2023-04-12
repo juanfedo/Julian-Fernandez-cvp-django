@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Producto, Venta
 from .forms import ProductoForm, VentaForm
-
-def inicio(request):
-    return render(request, 'inicio.html')
 
 @login_required
 def reporte_existencias(request):
@@ -13,7 +10,6 @@ def reporte_existencias(request):
     return render(request, 'Inventario/reporte_existencias.html', {'productos': productos})
 
 @login_required
-@permission_required('Inventario.crear_producto')
 def crear_producto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST)
@@ -26,7 +22,6 @@ def crear_producto(request):
     return render(request, 'Inventario/crear_producto.html', {'form': form})
 
 @login_required
-@permission_required('Inventario.change_producto')
 def editar_producto(request, pk):
     producto = get_object_or_404(Producto, pk=pk)
     if request.method == 'POST':
@@ -40,7 +35,6 @@ def editar_producto(request, pk):
     return render(request, 'Inventario/editar_producto.html', {'form': form, 'producto': producto})
 
 @login_required
-@permission_required('Inventario.add_venta')
 def crear_venta(request):
     if request.method == 'POST':
         form = VentaForm(request.POST)
@@ -71,7 +65,6 @@ def reporte_ventas(request):
     return render(request, 'Inventario/reporte_ventas.html', {'ventas': ventas}) 
 
 @login_required
-@permission_required('Inventario.delete_producto')
 def eliminar_producto(request, pk):
     producto = get_object_or_404(Producto, pk=pk)
     if request.method == 'POST':
