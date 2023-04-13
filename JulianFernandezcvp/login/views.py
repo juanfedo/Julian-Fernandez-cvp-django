@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 def user_login(request):
     if request.method == 'POST':
@@ -10,10 +11,8 @@ def user_login(request):
             login(request, user)
             return redirect('reporte_existencias')
         else:
-            message = 'El nombre de usuario o la contraseña son incorrectos.'
-    else:
-        message = ''
-    return render(request, 'login.html', {'message': message})
+            messages.error(request, 'El nombre de usuario o la contraseña son incorrectos.')
+    return render(request, 'login.html')
 
 def user_logout(request):
     logout(request)

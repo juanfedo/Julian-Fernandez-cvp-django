@@ -55,7 +55,6 @@ def crear_venta(request):
         form = VentaForm()
     return render(request, 'Inventario/crear_venta.html', {'form': form})
 
-
 @login_required
 def reporte_ventas(request):
     ventas = Venta.objects.all()
